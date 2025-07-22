@@ -227,6 +227,7 @@
                     </div>
                     <h4 class="text-white font-semibold mb-1">运营时间</h4>
                     <p class="text-white/60">1周+</p>
+                    <p class="text-white/60 mt-2">腐竹很友善的，你想要什么都可以许愿哦（实在得不到），腐竹都会给的</p>
                 </div>
             </div>
 
@@ -265,12 +266,43 @@
                                     </p>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-6">社交链接</h3>
+                        <div class="space-y-6">
                             <div class="flex items-start">
                                 <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4 shrink-0">
                                     <i class="fa fa-qq text-primary"></i>
                                 </div>
                                 <div>
+                                    <h4 class="text-white font-medium mb-1">QQ群聊</h4>
+                                    <button id="qq-group-btn" class="text-primary hover:underline">点击加入服务器群聊</button>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4 shrink-0">
+                                    <i class="fa fa-play-circle text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-medium mb-1">哔哩哔哩主页</h4>
+                                    <button id="bilibili-btn" class="text-primary hover:underline">查看腐竹主页</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- 页脚区域 -->
+    <footer class="bg-dark py-12 border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+                <div>
+                    <div class="flex items-center space-x-3 mb-6">
                         <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
                             <i class="fa fa-cubes text-xl text-white"></i>
                         </div>
@@ -279,23 +311,8 @@
                     <p class="text-white/60 mb-6">
                         提供舒适的游戏体验，让每一位玩家都能在这里找到属于自己的乐趣。
                     </p>
-                    <div class="flex space-x-4">
-                        <!-- QQ链接（打开模态框） -->
-                        <button id="footer-qq-btn" class="text-white/60 hover:text-primary transition-colors duration-300">
-                            <i class="fa fa-qq"></i>
-                        </button>
-                        <!-- 哔哩哔哩链接 -->
-                        <a href="https://b23.tv/tN3QqGM" target="_blank" class="text-white/60 hover:text-primary transition-colors duration-300">
-                            <i class="fa fa-play-circle"></i>
-                        </a>
-                        <!-- 抖音链接 -->
-                        <a href="https://www.douyin.com/user/wly.bsgm" target="_blank" class="text-white/60 hover:text-primary transition-colors duration-300">
-                            <i class="fa fa-music"></i>
-                        </a>
-                    </div>
                 </div>
                 
-
                 <div>
                     <h4 class="text-white font-semibold mb-6">快速链接</h4>
                     <ul class="space-y-3">
@@ -315,8 +332,74 @@
                         <li><a href="community.html" class="text-white/60 hover:text-primary transition-colors duration-300">玩家社区</a></li>
                     </ul>
                 </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-6">社交链接</h4>
+                    <div class="space-y-3">
+                        <button id="footer-qq-btn" class="flex items-center text-white/60 hover:text-primary transition-colors duration-300">
+                            <i class="fa fa-qq mr-2"></i> QQ群聊
+                        </button>
+                        <a href="#" id="footer-bilibili-btn" class="flex items-center text-white/60 hover:text-primary transition-colors duration-300">
+                            <i class="fa fa-play-circle mr-2"></i> 哔哩哔哩
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
+    </footer>
+
+    <script>
+        // QQ群聊选择
+        document.getElementById('qq-group-btn').addEventListener('click', function() {
+            const serverChoice = prompt('请选择要进入的服务器群：\n1: 1016088265\n2: 1040592843');
+            if (serverChoice === '1') {
+                alert('服务器1群号：1016088265\n请复制群号并在QQ中搜索加入');
+            } else if (serverChoice === '2') {
+                alert('服务器2群号：1040592843\n请复制群号并在QQ中搜索加入');
+            } else if (serverChoice !== null) {
+                alert('请输入有效的服务器编号（1或2）');
+            }
+        });
+
+        // 页脚QQ按钮
+        document.getElementById('footer-qq-btn').addEventListener('click', function() {
+            document.getElementById('qq-group-btn').click();
+        });
+
+        // 哔哩哔哩主页选择
+        document.getElementById('bilibili-btn').addEventListener('click', function() {
+            const serverChoice = prompt('请选择要查看的服务器腐竹主页：\n1: 服务器1腐竹\n2: 服务器2腐竹');
+            if (serverChoice === '1') {
+                window.open('https://space.bilibili.com/3546902607956185', '_blank');
+            } else if (serverChoice === '2') {
+                window.open('https://space.bilibili.com/3546901930576012', '_blank');
+            } else if (serverChoice !== null) {
+                alert('请输入有效的服务器编号（1或2）');
+            }
+        });
+
+        // 页脚哔哩哔哩按钮
+        document.getElementById('footer-bilibili-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('bilibili-btn').click();
+        });
+
+        // 移动端菜单切换
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-dark/95');
+                navbar.classList.remove('bg-transparent');
+            } else {
+                navbar.classList.remove('bg-dark/95');
+            }
+        });
+    </script>
 </body>
 </html>
