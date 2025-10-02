@@ -11,7 +11,7 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#22c55e', // 绿色作为主色调，符合Minecraft风格
+                        primary: '#22c55e',
                         secondary: '#165DFF',
                         dark: '#1e293b',
                         light: '#f8fafc'
@@ -91,7 +91,8 @@
     <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-gradient-to-b from-dark/50 to-dark"></div>
-            <img src="images/2025-07-16_13.54.21.png" alt="Minecraft风景" class="w-full h-full object-cover">
+            <!-- 背景图片占位 -->
+            <div class="absolute inset-0 bg-gray-800"></div>
         </div>
         <div class="container mx-auto px-6 py-24 relative z-10 text-center">
             <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] font-bold text-white mb-6 text-shadow-lg">
@@ -109,8 +110,8 @@
                 </a>
             </div>
         </div>
-            <div class="grid grid-cols-2 gap-10">
-            <a href="#servers" class="flex flex-col items-center">
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2">
+            <a href="#servers" class="flex flex-col items-center text-white">
                 <span class="mb-2">下滑看看</span>
                 <i class="fa fa-chevron-down"></i>
             </a>
@@ -128,8 +129,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-16">
                 <!-- 服务器1 - 生存服务器 -->
                 <div class="bg-dark/50 border border-gray-700 rounded-xl overflow-hidden server-card">
-                    <div class="relative h-64">
-                        <img src="images/2025-03-12_19.16.14.png" alt="生存服务器宣传图" class="w-full h-full object-cover">
+                    <div class="relative h-64 bg-gradient-to-br from-primary/20 to-dark">
                         <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
                         <div class="absolute bottom-4 left-4">
                             <span class="px-3 py-1 bg-primary text-white text-sm font-semibold rounded-full">生存服务器</span>
@@ -178,17 +178,16 @@
                         
                 <!-- 服务器2 - 生存服务器 -->
                 <div class="bg-dark/50 border border-gray-700 rounded-xl overflow-hidden server-card">
-                    <div class="relative h-64">
-                        <img src="images/2025-07-21_23.16.43.png" alt="生存服务器宣传图" class="w-full h-full object-cover">
+                    <div class="relative h-64 bg-gradient-to-br from-secondary/20 to-dark">
                         <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
                         <div class="absolute bottom-4 left-4">
-                            <span class="px-3 py-1 bg-secondary text-white text-sm font-semibold rounded-full">生存服务器</span>
+                            <span class="px-3 py-1 bg-secondary text-white text-sm font-semibold rounded-full">维护中</span>
                         </div>
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-white mb-3">生存服务器 - 自由养老</h3>
                         <p class="text-white/70 mb-4">释放你的想象力！在这个服务器中，你可以使用无限想象来建造任何东西，展示你的建筑才华。</p>
-                        <p class="text-red/70 mb-4">服务器关闭3年，期间会修复/升级服务器</p>
+                        <p class="text-red-400 mb-4">服务器关闭维护中，期间会修复/升级服务器</p>
                         
                         <div class="space-y-3 mb-6">
                             <div class="flex items-center">
@@ -197,7 +196,7 @@
                                 </div>
                                 <div>
                                     <p class="text-white/50 text-sm">服务器地址</p>
-                                    <p class="text-white font-medium">frp1.197.72.113:55413</p>
+                                    <p class="text-white font-medium">维护中暂不可用</p>
                                 </div>
                             </div>
                             
@@ -226,6 +225,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
                 
             <!-- 单独显示的运营时间板块 -->
             <div class="bg-dark/50 border border-gray-700 rounded-xl overflow-hidden p-6 mb-10">
@@ -239,12 +239,23 @@
                 </div>
             </div>
 
+            <!-- 网站运行时间板块 -->
+            <div class="bg-dark/50 border border-gray-700 rounded-xl overflow-hidden p-6 mb-10">
+                <div class="bg-dark/50 p-5 rounded-lg">
+                    <div class="text-secondary text-3xl mb-2">
+                        <i class="fa fa-globe"></i>
+                    </div>
+                    <h4 class="text-white font-semibold mb-1">网站运行时间</h4>
+                    <p id="website-uptime" class="text-white/60">计算中...</p>
+                    <p class="text-white/60 text-sm mt-2">每秒动态更新</p>
+                </div>
+            </div>
+
             <!-- 单独显示的最佳体验板块 -->
             <div class="relative mb-16">
-                <img src="images/2025-07-16_13.57.43.png" alt="我的世界游戏画面" class="w-full h-auto rounded-xl shadow-2xl">
-                    <div class="absolute -bottom-6 -left-6 bg-primary p-6 rounded-xl shadow-xl hidden md:block">
-                        <p class="text-white font-bold text-xl">致力于尽量提供最佳游戏体验</p>
-                    </div>
+                <div class="absolute -bottom-6 -left-6 bg-primary p-6 rounded-xl shadow-xl hidden md:block">
+                    <p class="text-white font-bold text-xl">致力于尽量提供最佳游戏体验</p>
+                </div>
             </div>
         </div>
     </section>
@@ -294,7 +305,7 @@
                                     <i class="fa fa-play-circle text-primary"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-white font-medium mb-1">哔哩哔哩主页</h4>
+                                    <h4 class="text-white font-medium mb-1">哔哔哩哔哔哩主页</h4>
                                     <button id="bilibili-btn" class="text-primary hover:underline">查看腐竹主页</button>
                                 </div>
                             </div>
@@ -348,7 +359,7 @@
                             <i class="fa fa-qq mr-2"></i> QQ群聊
                         </button>
                         <a href="#" id="footer-bilibili-btn" class="flex items-center text-white/60 hover:text-primary transition-colors duration-300">
-                            <i class="fa fa-play-circle mr-2"></i> 哔哩哔哩
+                            <i class="fa fa-play-circle mr-2"></i> 哔哔哩哔哔哩
                         </a>
                     </div>
                 </div>
@@ -359,8 +370,8 @@
     <script>
         // 网站运行时间计算
         function updateWebsiteUptime() {
-            // 网站上线时间（设置为当前时间减去7天，模拟已运行一周）
-            const launchDate = new Date(Date.now() - 35 * 24 * 60 * 60 * 1000);
+            // 网站上线时间（设置为当前时间减去60天，模拟已运行2个月）
+            const launchDate = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000);
             const now = new Date();
             
             // 计算时间差
@@ -402,7 +413,7 @@
             document.getElementById('qq-group-btn').click();
         });
 
-        // 哔哩哔哩主页选择
+        // 哔哔哩哔哔哩主页选择
         document.getElementById('bilibili-btn').addEventListener('click', function() {
             const serverChoice = prompt('请选择要查看的服务器腐竹主页：\n1: 服务器1腐竹\n2: 服务器2腐竹');
             if (serverChoice === '1') {
@@ -414,7 +425,7 @@
             }
         });
 
-        // 页脚哔哩哔哩按钮
+        // 页脚哔哔哩哔哔哩按钮
         document.getElementById('footer-bilibili-btn').addEventListener('click', function(e) {
             e.preventDefault();
             document.getElementById('bilibili-btn').click();
