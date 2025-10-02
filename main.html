@@ -370,8 +370,8 @@
     <script>
         // 网站运行时间计算
         function updateWebsiteUptime() {
-            // 网站上线时间（设置为当前时间减去60天，模拟已运行2个月）
-            const launchDate = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000);
+            // 网站上线时间（设置为固定日期，例如2024年1月1日）
+            const launchDate = new Date('2025-07-10T15:35:17');
             const now = new Date();
             
             // 计算时间差
@@ -384,7 +384,10 @@
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
             
             // 更新显示
-            document.getElementById('website-uptime').innerText = `${days}天 ${hours}小时 ${minutes}分钟 ${seconds}秒`;
+            const uptimeElement = document.getElementById('website-uptime');
+            if (uptimeElement) {
+                uptimeElement.innerText = `${days}天 ${hours}小时 ${minutes}分钟 ${seconds}秒`;
+            }
         }
         
         // 页面加载时初始化
@@ -394,6 +397,11 @@
             
             // 每秒同步一次
             setInterval(updateWebsiteUptime, 1000);
+            
+            // 添加错误处理
+            window.addEventListener('error', function(e) {
+                console.error('JavaScript错误:', e.error);
+            });
         });
 
         // QQ群聊选择
