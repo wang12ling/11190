@@ -248,6 +248,7 @@
                     <h4 class="text-white font-semibold mb-1">网站运行时间</h4>
                     <p id="website-uptime" class="text-white/60">计算中...</p>
                     <p id="time-source" class="text-white/60 text-sm mt-2">同步中...</p>
+                    <button id="manual-sync" class="mt-2 px-3 py-1 bg-secondary/20 text-secondary text-xs rounded hover:bg-secondary/30 transition-colors">手动同步</button>
                 </div>
             </div>
 
@@ -368,16 +369,38 @@
     </footer>
 
     <script>
-        // 时间API配置 - 专注于WorldTimeAPI
+        // 时间API配置 - 多个备用方案
         const TIME_APIS = [
             {
                 name: "WorldTimeAPI",
                 url: "https://worldtimeapi.org/api/ip",
                 free: true,
                 parse: (data) => {
-                    // WorldTimeAPI返回unixtime字段（秒级时间戳）
                     if (data.unixtime) {
-                        return new Date(data.unixtime * 1000); // 转换为毫秒
+                        return new Date(data.unixtime * 1000);
+                    }
+                    return null;
+                }
+            },
+            {
+                name: "阿里云时间API",
+                url: "https://api.aliyun.com/time",
+                free: true,
+                parse: (data) => {
+                    if (data.timestamp) {
+                        return new Date(data.timestamp);
+                    }
+                    return null;
+                }
+            },
+            {
+                name: "HTTPBin时间",
+                url: "https://httpbin.org/headers",
+                free: true,
+                parse: (data) => {
+                    // 从响应头中获取Date字段
+                    if (data.headers && data.headers.Date) {
+                        return new Date(data.headers.Date);
                     }
                     return null;
                 }
@@ -389,6 +412,8 @@
         let isServerTimeSynced = false;
         let currentTimeSource = "本地时间";
         let lastSyncTime = 0;
+        let syncAttempts = 0;
+        const MAX_SYNC_ATTEMPTS = 3;
 
         // 获取服务器时间
         async function fetchServerTime() {
@@ -396,6 +421,14 @@
             if (isServerTimeSynced && Date.now() - lastSyncTime < 5 * 60 * 1000) {
                 return true;
             }
+            
+            // 如果尝试次数过多，暂时停止尝试
+            if (syncAttempts >= MAX_SYNC_ATTEMPTS) {
+                console.log("已达到最大同步尝试次数，暂停同步");
+                return false;
+            }
+            
+            syncAttempts++;
             
             for (const api of TIME_APIS) {
                 try {
@@ -426,6 +459,7 @@
                             isServerTimeSynced = true;
                             currentTimeSource = api.name;
                             lastSyncTime = Date.now();
+                            syncAttempts = 0; // 重置尝试次数
                             
                             console.log(`成功从 ${api.name} 同步时间，偏移量: ${serverTimeOffset}ms`);
                             return true;
@@ -433,7 +467,7 @@
                     }
                 } catch (error) {
                     console.warn(`${api.name} 请求失败:`, error);
-                    // 继续尝试下一个API（如果有的话）
+                    // 继续尝试下一个API
                 }
             }
             
@@ -441,6 +475,7 @@
             serverTimeOffset = 0;
             isServerTimeSynced = false;
             currentTimeSource = "本地时间（同步失败）";
+            console.log("所有时间API同步失败，使用本地时间");
             return false;
         }
         
@@ -452,9 +487,10 @@
             return Date.now();
         }
         
+        // 更新网站运行时间显示
         function updateWebsiteUptime() {
             // 网站上线时间（设置为固定日期）
-            const launchDate = new Date('2025-07-15T20:30:27').getTime();
+            const launchDate = new Date('2024-01-01T00:00:00').getTime();
             const now = getCurrentTime();
             
             // 计算时间差
@@ -488,6 +524,26 @@
             }
         }
         
+        // 手动同步函数
+        async function manualSync() {
+            const syncButton = document.getElementById('manual-sync');
+            const originalText = syncButton.textContent;
+            
+            // 显示同步中状态
+            syncButton.textContent = "同步中...";
+            syncButton.disabled = true;
+            
+            // 尝试同步
+            await fetchServerTime();
+            updateWebsiteUptime();
+            
+            // 恢复按钮状态
+            setTimeout(() => {
+                syncButton.textContent = originalText;
+                syncButton.disabled = false;
+            }, 2000);
+        }
+        
         // 页面加载时初始化
         document.addEventListener('DOMContentLoaded', async function() {
             // 初始显示
@@ -507,6 +563,9 @@
                 await fetchServerTime();
                 updateWebsiteUptime();
             }, 5 * 60 * 1000);
+            
+            // 添加手动同步按钮事件
+            document.getElementById('manual-sync').addEventListener('click', manualSync);
         });
 
         // 其他交互功能保持不变
